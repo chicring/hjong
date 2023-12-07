@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hjong.mapper.UserPostsMapper">
+    <resultMap id="postAndUser" type="com.hjong.entity.vo.PostAndUserVO">
+        <id column="post_id" property="post_id" />
+        <id column="post_title" property="post_title" />
+        <id column="post_content" property="post_content" />
+        <id column="post_time" property="post_time" />
+        <id column="type_id" property="type_id" />
+        <id column="user_id" property="user_id" />
+        <association property="user" javaType="com.hjong.entity.vo.UserVO">
+            <id column="user_id" property="user_id" />
+            <id column="user_name" property="user_name" />
+            <id column="avatar" property="avatar" />
+            <id column="email" property="email" />
+            <id column="introduction" property="introduction" />
+            <id column="role_id" property="role_id" />
+        </association>
+    </resultMap>
+    
+    <select id="selectByAny" resultMap="postAndUser">
+        SELECT p.*, u.user_id, u.avatar, u.user_name, u.email, u.introduction, u.role_id
+        FROM user_posts p
+                 INNER JOIN user u ON p.user_id = u.user_id
+            ${ew.customSqlSegment}
+    </select>
+
+
+</mapper>

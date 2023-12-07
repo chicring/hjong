@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hjong.mapper.SharefilesMapper">
+    <resultMap id="ShareFile" type="com.hjong.entity.vo.ShareFileVO">
+        <id column="share_id" property="share_id" />
+        <id column="share_link" property="share_link" />
+        <id column="password" property="password" />
+        <id column="views" property="views" />
+        <id column="download_counts" property="download_counts" />
+        <id column="is_private" property="is_private" />
+        <id column="is_expire" property="is_expire" />
+        <id column="expire_time" property="expire_time" />
+        <id column="share_time" property="share_time" />
+        <id column="file_id" property="file_id" />
+        <association property="user" javaType="com.hjong.entity.vo.UserVO">
+            <id column="user_id" property="user_id" />
+            <id column="user_name" property="user_name" />
+            <id column="avatar" property="avatar" />
+            <id column="email" property="email" />
+            <id column="introduction" property="introduction" />
+            <id column="role_id" property="role_id" />
+        </association>
+        <association property="file" javaType="com.hjong.entity.vo.FileVO">
+            <id column="file_id" property="file_id" />
+            <id column="file_name" property="file_name" />
+            <id column="file_size" property="file_size" />
+            <id column="file_type" property="file_type" />
+            <id column="upload_time" property="upload_time" />
+        </association>
+    </resultMap>
+
+    <select id="selectShareDetails" resultMap="ShareFile">
+        SELECT
+            sf.share_id,
+            sf.share_link,
+            sf.password,
+            sf.views,
+            sf.download_counts,
+            sf.is_private,
+            sf.is_expire,
+            sf.expire_time,
+            sf.share_time,
+            sf.file_id,
+            u.user_id,
+            u.user_name,
+            u.avatar,
+            u.email,
+            u.introduction,
+            u.role_id,
+            f.file_id AS file_file_id,
+            f.file_name,
+            f.file_size,
+            f.file_type,
+            f.upload_time
+        FROM sharefiles sf
+                 INNER JOIN user u ON sf.user_id = u.user_id
+                 INNER JOIN file f ON sf.file_id = f.file_id
+            ${ew.customSqlSegment}
+    </select>
+
+</mapper>
