@@ -4,7 +4,7 @@ public enum ExceptionCodeMsg {
 
 
     Email_EXISTS(10001,"邮箱已存在"),
-    Email_NOT_EXISTS(10002,"邮箱未注册"),
+    Email_NOT_EXISTS(10002,"邮箱地址错误或未注册"),
 
     INVALID_Register(10003,"注册信息错误"),
     INVALID_CODE(10004,"验证码无效"),

@@ -1,5 +1,6 @@
 package com.hjong.controller;
 
+import com.hjong.entity.ExceptionCodeMsg;
 import com.hjong.entity.RestBean;
 import com.hjong.entity.User;
 import com.hjong.entity.vo.EmailResetVO;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Positive;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -74,8 +76,11 @@ public class UserController {
     }
 
     @PostMapping ("/register")
-    public RestBean<Void> Register(@Valid @RequestBody User newUser, @RequestParam("code") Integer code, HttpSession session){
+    public RestBean<Void> Register(@Valid @RequestBody User newUser, @Positive(message ="验证码不能为空") @RequestParam(value = "code" , required = false) Integer code, HttpSession session){
 
+        if(newUser.getUserName().isEmpty() || newUser.getPassword().isEmpty() || newUser.getEmail().isEmpty()){
+            return RestBean.failure(ExceptionCodeMsg.INVALID_Register);
+        }
         Map<String,Object> Verifty = new HashMap<>();
 
         Verifty.put("email", session.getAttribute("email"));

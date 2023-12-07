@@ -3,8 +3,6 @@ package com.hjong.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -38,7 +36,6 @@ public class User implements Serializable {
     /**
      * 密码
      */
-    @NotNull(message = "密码不能为空")
     private String password;
 
     /**
@@ -49,7 +46,6 @@ public class User implements Serializable {
     /**
      * 电子邮箱
      */
-    @Email(message = "邮箱地址不正确")
     private String email;
 
     /**
