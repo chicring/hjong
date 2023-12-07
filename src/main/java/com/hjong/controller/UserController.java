@@ -10,8 +10,9 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Size;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -27,6 +28,7 @@ import java.util.Random;
  * @since 2023-11-30
  */
 @RestController
+@Validated
 @RequestMapping("/user")
 public class UserController {
 
@@ -72,7 +74,7 @@ public class UserController {
     }
 
     @PostMapping ("/register")
-    public RestBean<Void> Register(@RequestBody User newUser, @Size(min = 6,max = 6,message = "验证码格式不对") @RequestParam("code") int code, HttpSession session){
+    public RestBean<Void> Register(@Valid @RequestBody User newUser, @RequestParam("code") Integer code, HttpSession session){
 
         Map<String,Object> Verifty = new HashMap<>();
 
