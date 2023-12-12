@@ -51,6 +51,7 @@ public class UserPostsController {
             vo = new PublishPostVO();
             vo.setPost_title(content);
             vo.setType_id(type);
+
         }
         if (userId != null) {
             vo = new PublishPostVO();
