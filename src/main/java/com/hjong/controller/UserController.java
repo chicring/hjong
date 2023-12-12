@@ -7,9 +7,7 @@ import com.hjong.entity.vo.EmailResetVO;
 import com.hjong.service.IUserService;
 import com.hjong.util.JwtUtils;
 import jakarta.annotation.Resource;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
@@ -40,7 +38,7 @@ public class UserController {
     JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    public RestBean<User> login(@RequestParam @Email(message = "邮箱格式不正确") String email, @RequestParam("password") String password, HttpServletResponse response){
+    public RestBean<Map<String,Object>> login(@RequestParam @Email(message = "邮箱格式不正确") String email, @RequestParam("password") String password){
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
@@ -48,11 +46,11 @@ public class UserController {
         User loginUser = iUserService.loginByEmail(user);
 
         if (!(loginUser == null)){
-            Cookie cookie = new Cookie("token",jwtUtils.createJwt(loginUser));
-            cookie.setPath("/");
-            cookie.setMaxAge(24 * 60 * 60);
-            response.addCookie(cookie);
-            return RestBean.success(loginUser);
+            Map<String,Object> userInfo = new HashMap<>();
+            userInfo.put("user",loginUser);
+            userInfo.put("token",jwtUtils.createJwt(loginUser));
+
+            return RestBean.success(userInfo);
         }else {
             return RestBean.success("default");
         }

@@ -19,8 +19,8 @@ public class InterceptConfiguration implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         //指哪些接口URL需要增加跨域设置
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")//指的是前端哪些域名被允许跨域
-//                .allowedOriginPatterns("*")
+//                .allowedOrigins("*")//指的是前端哪些域名被允许跨域
+                .allowedOriginPatterns("*")
                 //需要带cookie等凭证时，设置为true，就会把cookie的相关信息带上
                 .allowCredentials(true)
                 //指的是允许哪些方法
