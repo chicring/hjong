@@ -105,9 +105,9 @@
 <!--                    <include>**/*.properties</include>-->
                 </includes>
                 <!--excludes：指定哪些文件被忽略，如果一个文件同时符合includes和excludes，则excludes生效；-->
-                <excludes>
-                    <exclude>**/*.properties</exclude>
-                </excludes>
+<!--                <excludes>-->
+<!--                    <exclude>**/*.properties</exclude>-->
+<!--                </excludes>-->
                 <!--filtering，构建过程中是否对资源进行过滤，默认false-->
                 <filtering>false</filtering>
             </resource>
