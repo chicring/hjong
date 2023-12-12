@@ -7,7 +7,7 @@ spring:
     username: root
     password: 95aninjv
     driver-class-name: com.mysql.cj.jdbc.Driver
-
+#邮箱
   mail:
     host: smtp.qq.com
     username: c.jong@qq.com
