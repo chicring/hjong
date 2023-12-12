@@ -94,21 +94,13 @@
             </plugin>
         </plugins>
 
-        <!--资源往往不是代码，无需编译，而是一些properties或XML配置文件，构建过程中会往往会将资源文件从源路径复制到指定的目标路径。-->
+
         <resources>
             <resource>
-                <!--directory，资源文件的路径，默认位于${basedir}/src/main/resources/目录下-->
                 <directory>src/main/java</directory>
-                <!--includes，一组文件名的匹配模式，被匹配的资源文件将被构建过程处理-->
                 <includes>
                     <include>**/*.xml</include>
-<!--                    <include>**/*.properties</include>-->
                 </includes>
-                <!--excludes：指定哪些文件被忽略，如果一个文件同时符合includes和excludes，则excludes生效；-->
-<!--                <excludes>-->
-<!--                    <exclude>**/*.properties</exclude>-->
-<!--                </excludes>-->
-                <!--filtering，构建过程中是否对资源进行过滤，默认false-->
                 <filtering>false</filtering>
             </resource>
 
@@ -117,8 +109,7 @@
                 <includes>
                     <include>**/*.properties</include>
                 </includes>
-                <!--这里写成true会造成编译注释错误-->
-                <filtering>false</filtering>
+                <filtering>true</filtering>
             </resource>
 
         </resources>
