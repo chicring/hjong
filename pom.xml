@@ -111,6 +111,16 @@
                 <!--filtering，构建过程中是否对资源进行过滤，默认false-->
                 <filtering>false</filtering>
             </resource>
+
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+                <!--这里写成true会造成编译注释错误-->
+                <filtering>false</filtering>
+            </resource>
+
         </resources>
     </build>
 
