@@ -17,7 +17,7 @@ class HjongApplicationTests {
 //        QueryWrapper<PostAndUserVO> queryWrapper = new QueryWrapper<>();
 //        queryWrapper.eq("type_id",2);
 //        System.out.println(userPostsMapper.selectByAny(page,queryWrapper).getRecords());
-
+          System.out.println("sadf");
     }
 
 }

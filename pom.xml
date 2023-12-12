@@ -102,6 +102,7 @@
                 <!--includes，一组文件名的匹配模式，被匹配的资源文件将被构建过程处理-->
                 <includes>
                     <include>**/*.xml</include>
+<!--                    <include>**/*.properties</include>-->
                 </includes>
                 <!--excludes：指定哪些文件被忽略，如果一个文件同时符合includes和excludes，则excludes生效；-->
                 <excludes>
