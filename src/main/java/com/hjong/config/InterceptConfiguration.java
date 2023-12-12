@@ -42,7 +42,8 @@ public class InterceptConfiguration implements WebMvcConfigurer {
         //addPathPatterns()方法添加需要拦截的路径
         //所有路径都被拦截
         registration.addPathPatterns(
-                "/userPosts/post"
+                "/userPosts/post",
+                "/share/my"
         );
         //excludePathPatterns()方法添加不拦截的路径
         //添加不拦截路径

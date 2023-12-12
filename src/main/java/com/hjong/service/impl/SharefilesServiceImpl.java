@@ -97,9 +97,9 @@ public class SharefilesServiceImpl extends ServiceImpl<SharefilesMapper, Sharefi
     public IPage<ShareFileVO> findAllById(Integer userId, Integer current) {
 
         QueryWrapper<ShareFileVO> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("sf.user_id",userId);
+        queryWrapper.eq("sf.user_id",userId).orderByDesc("share_time");
 
-        Page<ShareFileVO> page = new Page<>(1,20);
+        Page<ShareFileVO> page = new Page<>(current,20);
         return this.getBaseMapper().selectShareDetails(page,queryWrapper);
     }
 
@@ -120,13 +120,22 @@ public class SharefilesServiceImpl extends ServiceImpl<SharefilesMapper, Sharefi
             User shareUser = userMapper.selectOne(queryWrapper1);
             map.put("share_user",shareUser);
 
-            if(password != null && password.equals(sharefiles.getPassword())){
+            if(!sharefiles.getIsPrivate()){
                 QueryWrapper<File> queryWrapper2 = new QueryWrapper<>();
                 queryWrapper2.select("file_id","file_name","file_size","file_type","upload_time","is_folder");
                 queryWrapper2.eq("file_id",sharefiles.getFileId());
                 List<File> file = fileMapper.selectList(queryWrapper2);
                 map.put("file",file);
             }
+
+            if(password != null &&sharefiles.getIsPrivate() && password.equals(sharefiles.getPassword())){
+                QueryWrapper<File> queryWrapper2 = new QueryWrapper<>();
+                queryWrapper2.select("file_id","file_name","file_size","file_type","upload_time","is_folder");
+                queryWrapper2.eq("file_id",sharefiles.getFileId());
+                List<File> file = fileMapper.selectList(queryWrapper2);
+                map.put("file",file);
+            }
+
 
             sharefiles.setPassword(null);
             map.put("share",sharefiles);
@@ -165,7 +174,7 @@ public class SharefilesServiceImpl extends ServiceImpl<SharefilesMapper, Sharefi
 
         final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         final SecureRandom random = new SecureRandom();
-        int length = 20;
+        int length = 10;
 
         StringBuilder stringBuilder = new StringBuilder(length);
         for (int i = 0; i < length; i++) {

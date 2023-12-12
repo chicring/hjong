@@ -9,6 +9,7 @@ import com.hjong.service.IUserPostsService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -42,7 +43,8 @@ public class UserPostsController {
     public RestBean<Map<String,Object>> findByAny(
             @RequestParam(value = "type",required = false) Integer type,
             @RequestParam(value = "content",required = false) String content,
-            @RequestParam(value = "current") @NotNull(message = "没有设置查询页") Integer current){
+            @RequestParam(value = "current") @NotNull(message = "没有设置查询页") Integer current,
+            @Positive(message ="wu") @RequestParam(value = "useId",required = false) Integer userId){
 
         PublishPostVO vo = null;
         if(type != null || content != null){
@@ -50,7 +52,10 @@ public class UserPostsController {
             vo.setPost_title(content);
             vo.setType_id(type);
         }
-
+        if (userId != null) {
+            vo = new PublishPostVO();
+            vo.setUser_id(userId);
+        }
         IPage<PostAndUserVO> page = iUserPostsService.findByAny(vo,current);
         Map<String,Object> map = new HashMap<>();
         map.put("count",page.getTotal());

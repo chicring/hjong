@@ -1,8 +1,10 @@
 package com.hjong.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.hjong.entity.RestBean;
 import com.hjong.entity.Sharefiles;
 import com.hjong.entity.vo.ShareCreateVo;
+import com.hjong.entity.vo.ShareFileVO;
 import com.hjong.service.ISharefilesService;
 import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,13 +37,18 @@ public class SharefilesController {
     }
 
     @GetMapping("/find")
-    public RestBean<Map<String,Object>> findByLink(@RequestParam("link") String Link, @RequestParam(value = "password", required = false) String password, HttpServletRequest request){
+    public RestBean<Map<String,Object>> findByLink(@RequestParam("link") String Link, @RequestParam(value = "password", required = false) String password){
         iSharefilesService.updateShareViewsByLink(Link);
         return RestBean.success(iSharefilesService.findByLink(Link,password));
     }
     @GetMapping("/my")
-    public RestBean<Void> findByUserId(){
-        return null;
+    public RestBean<IPage<ShareFileVO>> findByUserId(
+            @RequestParam("current") Integer current,
+            HttpServletRequest request
+    ){
+        Integer userId =  Integer.parseInt(request.getAttribute("userId").toString());
+
+        return RestBean.success(iSharefilesService.findAllById(userId,current));
     }
 
 

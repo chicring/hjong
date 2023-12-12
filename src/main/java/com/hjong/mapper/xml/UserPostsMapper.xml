@@ -5,6 +5,8 @@
         <id column="post_id" property="post_id" />
         <id column="post_title" property="post_title" />
         <id column="post_content" property="post_content" />
+        <id column="likes_count" property="likes_count" />
+        <id column="comments_count" property="comments_count" />
         <id column="post_time" property="post_time" />
         <id column="type_id" property="type_id" />
         <id column="user_id" property="user_id" />
