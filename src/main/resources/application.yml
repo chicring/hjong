@@ -12,6 +12,7 @@ spring:
     host: smtp.qq.com
     username: c.jong@qq.com
     password: tsuldibuddardhae
+    port: 587
 
   servlet:
     multipart:
