@@ -2,7 +2,9 @@ FROM xldevops/jdk17-lts
 LABEL authors="Chicring"
 EXPOSE 8888
 
-ADD target/hjong-0.0.1-SNAPSHOT.jar /root/app.jar
-RUN ls -l /root
+USER app
 
-ENTRYPOINT ["java","-jar","/root/app.jar"]
+ADD target/hjong-0.0.1-SNAPSHOT.jar /app/app.jar
+RUN ls -l /app
+
+ENTRYPOINT ["java","-jar","/app/app.jar"]
