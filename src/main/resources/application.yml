@@ -21,7 +21,7 @@ spring:
 
 file:
   upload:
-    path: D:/upload
+    path: /tmp/moose
 
 
 mybatis-plus:
