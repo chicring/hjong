@@ -19,6 +19,7 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
 
+#文件上传路径
 file:
   upload:
     path: /tmp/moose

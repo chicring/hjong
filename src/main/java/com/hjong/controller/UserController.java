@@ -10,7 +10,6 @@ import jakarta.annotation.Resource;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Positive;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -38,7 +37,7 @@ public class UserController {
     JwtUtils jwtUtils;
 
     @PostMapping("/login")
-    public RestBean<Map<String,Object>> login(@RequestParam @Email(message = "邮箱格式不正确") String email, @RequestParam("password") String password){
+    public RestBean<Map<String,Object>> login(@RequestParam String email, @RequestParam("password") String password){
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
