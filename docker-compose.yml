@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  hjong:
+    image: registry.cn-hongkong.aliyuncs.com/moose-hjong/hjong
+    ports:
+      - "8888:8888"
+
+  file:
+    image: registry.cn-hongkong.aliyuncs.com/moose-hjong/file
+    depends_on:
+      - hjong
+    ports:
+      - "3000:80"

@@ -44,7 +44,7 @@ public class UserPostsServiceImpl extends ServiceImpl<UserPostsMapper, UserPosts
 
         QueryWrapper<PostAndUserVO> queryWrapper = new QueryWrapper<>();
         Page<PostAndUserVO> page = new Page<>(current,20);
-
+//        page.setOptimizeCountSql(false);
         if(vo == null){
             return getBaseMapper().selectByAny(page,queryWrapper);
         }
