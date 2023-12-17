@@ -71,4 +71,13 @@ public class UserPostsController {
     public RestBean<PostAndUserVO> singleFind(@RequestParam("id") Integer Id){
         return RestBean.success(iUserPostsService.findById(Id));
     }
+
+    @GetMapping("/detect")
+    public RestBean<Void> delectById(@RequestParam("id") Integer id){
+        if (iUserPostsService.delectById(id)){
+            return RestBean.success("删除成功");
+        }else {
+            return RestBean.failure(ExceptionCodeMsg.FAIL_USER_ACTION);
+        }
+    }
 }

@@ -89,8 +89,8 @@ public class SharefilesServiceImpl extends ServiceImpl<SharefilesMapper, Sharefi
     }
 
     @Override
-    public Integer deleteShare(Integer shareId) {
-        return null;
+    public Boolean deleteShare(Integer shareId) {
+        return removeById(shareId);
     }
 
     @Override
@@ -162,6 +162,8 @@ public class SharefilesServiceImpl extends ServiceImpl<SharefilesMapper, Sharefi
             return 0;
         }
     }
+
+
 
     private LocalDateTime generateExpiryTime(int hours) {
         // 获取当前时间

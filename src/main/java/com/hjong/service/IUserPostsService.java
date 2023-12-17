@@ -18,4 +18,5 @@ public interface IUserPostsService extends IService<UserPosts> {
     Boolean publishUserPost(PublishPostVO vo);
     IPage<PostAndUserVO> findByAny(PublishPostVO vo, Integer current);
     PostAndUserVO findById(Integer Id);
+    Boolean delectById(Integer Id);
 }

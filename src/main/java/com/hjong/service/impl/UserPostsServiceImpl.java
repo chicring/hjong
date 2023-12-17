@@ -49,7 +49,7 @@ public class UserPostsServiceImpl extends ServiceImpl<UserPostsMapper, UserPosts
             return getBaseMapper().selectByAny(page,queryWrapper);
         }
 
-        queryWrapper.orderByDesc("post_time")
+        queryWrapper
                 .or().like("post_title","%" + vo.getPost_title() + "%")
                 .or().like("post_content","%" + vo.getPost_title() + "%")
                 .or().eq("type_id",vo.getType_id())
@@ -65,5 +65,10 @@ public class UserPostsServiceImpl extends ServiceImpl<UserPostsMapper, UserPosts
         queryWrapper.eq("post_id",Id);
 
         return getBaseMapper().selectByAny(page,queryWrapper).getRecords().get(0);
+    }
+
+    @Override
+    public Boolean delectById(Integer Id) {
+        return removeById(Id);
     }
 }

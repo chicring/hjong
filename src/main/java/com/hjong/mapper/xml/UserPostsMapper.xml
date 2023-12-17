@@ -24,6 +24,7 @@
         SELECT p.*, u.user_id, u.avatar, u.user_name, u.email, u.introduction, u.role_id
         FROM user_posts p
                  INNER JOIN user u ON p.user_id = u.user_id
+        ORDER BY p.post_time DESC
             ${ew.customSqlSegment}
     </select>
 

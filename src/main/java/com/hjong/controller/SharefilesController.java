@@ -1,6 +1,7 @@
 package com.hjong.controller;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.hjong.entity.ExceptionCodeMsg;
 import com.hjong.entity.RestBean;
 import com.hjong.entity.Sharefiles;
 import com.hjong.entity.vo.ShareCreateVo;
@@ -51,5 +52,12 @@ public class SharefilesController {
         return RestBean.success(iSharefilesService.findAllById(userId,current));
     }
 
-
+    @GetMapping("/detect")
+    public RestBean<Void> detectByShareId(@RequestParam("shareId") Integer shareId){
+        if (iSharefilesService.deleteShare(shareId)){
+            return RestBean.success("删除成功");
+        }else {
+            return RestBean.failure(ExceptionCodeMsg.FAIL_USER_ACTION);
+        }
+    }
 }
