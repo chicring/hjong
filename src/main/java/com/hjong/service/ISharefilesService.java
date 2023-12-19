@@ -23,6 +23,7 @@ public interface ISharefilesService extends IService<Sharefiles> {
     Boolean deleteShare(Integer shareId);
     IPage<ShareFileVO> findAllById(Integer userId, Integer current);
     Map<String,Object> findByLink(String link,String password);
+    IPage<ShareFileVO> findHotByView();
     Integer updateShareViewsByLink(String link);
     Integer updateDownloadCountsByLink(String link);
 

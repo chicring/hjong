@@ -52,6 +52,11 @@ public class SharefilesController {
         return RestBean.success(iSharefilesService.findAllById(userId,current));
     }
 
+    @GetMapping("/top")
+    public RestBean<IPage<ShareFileVO>> findHotByView(){
+        return RestBean.success(iSharefilesService.findHotByView());
+    }
+
     @GetMapping("/detect")
     public RestBean<Void> detectByShareId(@RequestParam("shareId") Integer shareId){
         if (iSharefilesService.deleteShare(shareId)){

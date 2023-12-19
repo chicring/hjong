@@ -146,6 +146,15 @@ public class SharefilesServiceImpl extends ServiceImpl<SharefilesMapper, Sharefi
     }
 
     @Override
+    public IPage<ShareFileVO> findHotByView() {
+        QueryWrapper<ShareFileVO> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("is_private",0).orderByDesc("views");
+
+        Page<ShareFileVO> page = new Page<>(1,10);
+        return this.getBaseMapper().selectShareDetails(page,queryWrapper);
+    }
+
+    @Override
     public Integer updateShareViewsByLink(String link) {
         if(this.update().setSql("views = views + 1").eq("share_link",link).update()){
             return 1;

@@ -2,13 +2,14 @@ package com.hjong.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hjong.entity.ExceptionCodeMsg;
 import com.hjong.entity.User;
 import com.hjong.entity.WebException;
 import com.hjong.entity.vo.EmailResetVO;
+import com.hjong.entity.vo.UserInfoVo;
 import com.hjong.mapper.UserMapper;
 import com.hjong.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hjong.util.MailUtils;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -95,6 +96,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             throw new WebException(ExceptionCodeMsg.INVALID_CODE);
         }
 
+    }
+
+    @Override
+    public Integer updateByInfo(UserInfoVo vo) {
+        if(vo == null){
+            throw new WebException(ExceptionCodeMsg.FAIL_USER_ACTION);
+        }
+        User user = new User();
+        System.out.println(vo.getIntroduction());
+        user.setUserId(vo.getUser_id());
+        user.setAvatar(vo.getAvatar());
+        user.setUserName(vo.getUser_name());
+        user.setIntroduction(vo.getIntroduction());
+        return this.getBaseMapper().updateById(user);
     }
 
     @Override

@@ -45,7 +45,8 @@ public class InterceptConfiguration implements WebMvcConfigurer {
                 "/userPosts/post",
                 "/share/my",
                 "/share/detect",
-                "/userPosts/detect"
+                "/userPosts/detect",
+                "/user/update"
         );
         //excludePathPatterns()方法添加不拦截的路径
         //添加不拦截路径

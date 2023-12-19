@@ -4,6 +4,7 @@ package com.hjong.util;
 
 import com.hjong.entity.File;
 import com.hjong.entity.FileException;
+import com.hjong.entity.PaidFiles;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Component;
@@ -47,6 +48,28 @@ public class FileTools{
             throw new FileException("存储文件失败 ...." + fileName + "请重试");
         }
     }
+
+    public PaidFiles createFile(MultipartFile file, String path) {
+        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+        Path fileStorageLocation = Paths.get(path).toAbsolutePath().normalize();
+        try {
+            if(fileName.contains("..")) {
+                throw new FileException("文件路径出错...." + fileName);
+            }
+            Path targetLocation = fileStorageLocation.resolve(fileName);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            PaidFiles newFile = new PaidFiles();
+            newFile.setFileName(fileName);
+            newFile.setFileSize(this.transforSize(file.getSize()));
+            newFile.setFileType(this.transforType(fileName));
+            newFile.setFilePath(path + "/" + fileName);
+
+            return newFile;
+        } catch (IOException ex) {
+            throw new FileException("存储文件失败 ...." + fileName + "请重试");
+        }
+    }
+
     /**
      * 加载文件
      *
@@ -109,6 +132,7 @@ public class FileTools{
         }
         return "other";
     }
+
     /**
      * 根据文件字节大小，转换成相应的B,KB,MB,GB
      * 文件的字节大小

@@ -4,6 +4,7 @@ import com.hjong.entity.ExceptionCodeMsg;
 import com.hjong.entity.RestBean;
 import com.hjong.entity.User;
 import com.hjong.entity.vo.EmailResetVO;
+import com.hjong.entity.vo.UserInfoVo;
 import com.hjong.service.IUserService;
 import com.hjong.util.JwtUtils;
 import jakarta.annotation.Resource;
@@ -99,6 +100,16 @@ public class UserController {
         vo.setUserId((String) request.getAttribute("userId"));
 
         return RestBean.success(iUserService.resetPasswordByEmail(vo));
+    }
+
+    @PostMapping("/update")
+    public RestBean<Void> updateInfo(@RequestBody UserInfoVo info, HttpServletRequest request){
+        info.setUser_id(Integer.parseInt(request.getAttribute("userId").toString()));
+        if (iUserService.updateByInfo(info) > 0){
+            return RestBean.success("更新成功");
+        }else {
+            return RestBean.failure(ExceptionCodeMsg.Reset_FAIL);
+        }
     }
 
     private int creatVerifyCode(){

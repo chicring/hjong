@@ -3,6 +3,7 @@ package com.hjong.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.hjong.entity.User;
 import com.hjong.entity.vo.EmailResetVO;
+import com.hjong.entity.vo.UserInfoVo;
 
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public interface IUserService extends IService<User> {
     String registerEmailVerifyCode(String email,int code);
 
     String resetPasswordByEmail(EmailResetVO vo);
-
+    Integer updateByInfo(UserInfoVo vo);
     String resetConfirm();
     boolean existsUserByEmail(String email);
 }
