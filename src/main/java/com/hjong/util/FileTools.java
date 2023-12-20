@@ -1,7 +1,5 @@
 package com.hjong.util;
 
-
-
 import com.hjong.entity.File;
 import com.hjong.entity.FileException;
 import com.hjong.entity.PaidFiles;
@@ -26,18 +24,19 @@ public class FileTools{
 
     /**
      * 存储文件到系统
-     * @param file 文件,path 文件路径
-     * @return 文件名
      */
     public File storeFile(MultipartFile file, String path) {
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
+
         Path fileStorageLocation = Paths.get(path).toAbsolutePath().normalize();
+
         try {
             if(fileName.contains("..")) {
                 throw new FileException("文件路径出错...." + fileName);
             }
             Path targetLocation = fileStorageLocation.resolve(fileName);
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+
             File newFile = new File();
             newFile.setFileName(fileName);
             newFile.setFileSize(this.transforSize(file.getSize()));
@@ -72,9 +71,7 @@ public class FileTools{
 
     /**
      * 加载文件
-     *
-     * @return 文件资源
-     */
+     **/
     public Resource loadFileAsResource(String file_path) {
         try {
             Path filePath = Paths.get(file_path).toAbsolutePath().normalize();
@@ -89,6 +86,7 @@ public class FileTools{
             throw new FileException("文件找不到 ...." + ex);
         }
     }
+
     /**
      * 根据文件后缀判断文件类型
      */

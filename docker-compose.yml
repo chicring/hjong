@@ -2,11 +2,13 @@ version: '3'
 
 services:
   hjong:
+    container_name: hjong-backend
     image: registry.cn-hongkong.aliyuncs.com/moose-hjong/hjong
     ports:
       - "8888:8888"
 
   file:
+    container_name: hjong-frontend
     image: registry.cn-hongkong.aliyuncs.com/moose-hjong/file
     depends_on:
       - hjong
